@@ -35,6 +35,8 @@ public class StartServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		ArrayList<Club> clubsList = null;
+		ArrayList<Integer> clubsIdsList = null;
+
 //		get clubs data
 		try {
 			clubsList = ConnectDB.getClubs();
@@ -42,6 +44,14 @@ public class StartServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+//		get clubs ids in abonnement
+		try {
+			clubsIdsList = ConnectDB.getClubsIds();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		request.setAttribute("clubsIdsList", clubsIdsList);
 		request.setAttribute("clubsList", clubsList);
 		request.getRequestDispatcher("/index.jsp").forward(request, response);
 	}

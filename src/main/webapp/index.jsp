@@ -15,6 +15,7 @@
 	<!-- component -->
 	<%
 	ArrayList<Club> clubsList = (ArrayList) request.getAttribute("clubsList");
+	ArrayList<Integer> clubsIdsList = (ArrayList) request.getAttribute("clubsIdsList");
 	%>
 
 	<table class="min-w-full border-collapse block md:table">
@@ -56,8 +57,23 @@
 				</td>
 				<td
 					class="p-2 md:border md:border-grey-500 text-left block md:table-cell">
+					<%
+					if (clubsIdsList.contains(c.getNumber())) {
+					%>
 					<button
-						class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded">S'inscrire</button>
+						class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 border border-red-500 rounded">
+						<a href="/clubs/inscription?idClub=<%=c.getNumber()%>">Se
+							desabonner</a>
+					</button> <%
+ } else {
+ %>
+					<button
+						class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 border border-blue-500 rounded">
+						<a href="/clubs/inscription?idClub=<%=c.getNumber()%>">S'inscrire</a>
+					</button> <%
+ }
+ %>
+
 
 				</td>
 			</tr>

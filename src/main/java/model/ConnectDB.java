@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.apache.catalina.connector.Response;
+
 public class ConnectDB {
 	static final String URL = "jdbc:mysql://localhost:3306/clubs";
 	static final String Login = "root";
@@ -43,5 +45,28 @@ public class ConnectDB {
 			clubsList.add(c);
 		}
 		return clubsList;
+	}
+
+	public static int addUser(int idClub, String first_name, String last_name, String date) throws SQLException {
+		init();
+		Statement stm = (Statement) cnx.createStatement();
+		String sql = "Insert into abonnement values(" + idClub + ",'" + first_name + "','" + last_name + "','" + date
+				+ "')";
+		int rs = stm.executeUpdate(sql);
+		return rs;
+
+	}
+
+	public static ArrayList<Integer> getClubsIds() throws SQLException {
+		ArrayList<Integer> clubsIdsList = new ArrayList<Integer>();
+		init();
+		Statement stm = (Statement) cnx.createStatement();
+		String sql = "select idclub from abonnement";
+		ResultSet rs = stm.executeQuery(sql);
+		while (rs.next()) {
+			clubsIdsList.add(rs.getInt(1));
+		}
+
+		return clubsIdsList;
 	}
 }
